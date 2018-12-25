@@ -8,6 +8,8 @@ public class Cutlery : MonoBehaviour
 
 	private bool _canMove = true;
 
+	private bool _pointsClaimed;
+
 	public bool CanMove { get { return _canMove; } }
 
 	// Use this for initialization
@@ -32,7 +34,16 @@ public class Cutlery : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.tag == FloorTag)
+		{
 			Destroy(gameObject);
+			GameLogic.Instance.GameOver();
+		}
+
+		if (!_pointsClaimed)
+		{
+			GameLogic.Instance.AddPoints();
+			_pointsClaimed = true;
+		}
 
 		_canMove = false;
 	}

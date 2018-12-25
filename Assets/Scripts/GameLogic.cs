@@ -1,16 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour
 {
-	// Use this for initialization
-	void Start()
-	{
+	private int _points;
 
+	public static GameLogic Instance;
+
+	public Text Points;
+
+	public void Awake()
+	{
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
 	}
 
-	// Update is called once per frame
-	void Update()
+	public void AddPoints()
 	{
+		_points++;
+		Points.text = _points.ToString();
+	}
 
+	public void GameOver()
+	{
+		_points = 0;
+		SceneManager.LoadScene("Menu");
 	}
 }
