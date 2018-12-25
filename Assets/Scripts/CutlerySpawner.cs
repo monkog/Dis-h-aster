@@ -25,7 +25,7 @@ public class CutlerySpawner : MonoBehaviour
 	private GameObject SpawnCutlery()
 	{
 		_cutleryCount++;
-		var position = new Vector3(Random.Range(-0.6f, 0.85f), transform.position.y, 0);
+		var position = new Vector3(Random.Range(-4.0f, 4.0f), transform.position.y, 0);
 		var cutlery = Instantiate(_nextCutlery, position, Quaternion.identity);
 		cutlery.GetComponent<SpriteRenderer>().sortingOrder = _cutleryCount;
 		return cutlery;
