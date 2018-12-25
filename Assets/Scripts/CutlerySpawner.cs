@@ -1,41 +1,33 @@
-﻿using System.Collections;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CutlerySpawner : MonoBehaviour
 {
 	public GameObject[] CutleryPrefabs;
 	private int _cutleryCount;
+	private GameObject _lastCutlery;
+	private GameObject _nextCutlery;
 
 	// Use this for initialization
 	void Start()
 	{
-		StartCoroutine(SpawnCutleryCoroutine());
+		_nextCutlery = CutleryPrefabs[Random.Range(0, CutleryPrefabs.Length)];
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		if (_lastCutlery != null && _lastCutlery.GetComponent<Cutlery>().CanMove) return;
 
+		_lastCutlery = SpawnCutlery();
+		_nextCutlery = CutleryPrefabs[Random.Range(0, CutleryPrefabs.Length)];
 	}
 
-	private IEnumerator SpawnCutleryCoroutine()
+	private GameObject SpawnCutlery()
 	{
-		while (true)
-		{
-			_cutleryCount++;
-			var position = new Vector3(Random.Range(-0.6f, 0.85f), transform.position.y, 0);
-			var cutlery = Instantiate(CutleryPrefabs[Random.Range(0, CutleryPrefabs.Length)], position, Quaternion.identity);
-			cutlery.GetComponent<SpriteRenderer>().sortingOrder = _cutleryCount;
-			var cutleryScript = cutlery.GetComponent<Cutlery>();
-			var check = 0;
-			//while (cutleryScript.CanMove)
-			//{
-			//	//Debug.Log("Check " + check + " value for cutlery " + _cutleryCount);
-			//	//Thread.Sleep(100);
-			//}
-
-			yield return new WaitForSeconds(1.0f);
-		}
+		_cutleryCount++;
+		var position = new Vector3(Random.Range(-0.6f, 0.85f), transform.position.y, 0);
+		var cutlery = Instantiate(_nextCutlery, position, Quaternion.identity);
+		cutlery.GetComponent<SpriteRenderer>().sortingOrder = _cutleryCount;
+		return cutlery;
 	}
 }
