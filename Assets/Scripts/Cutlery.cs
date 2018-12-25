@@ -6,7 +6,9 @@ public class Cutlery : MonoBehaviour
 
 	private const float Speed = 0.1f;
 
-	private bool _canMove;
+	private bool _canMove = true;
+
+	public bool CanMove { get { return _canMove; } }
 
 	// Use this for initialization
 	void Start()
@@ -23,6 +25,8 @@ public class Cutlery : MonoBehaviour
 			transform.Translate(-Speed, 0, 0);
 		if (Input.GetKey(KeyCode.RightArrow))
 			transform.Translate(Speed, 0, 0);
+		if (Input.GetKey(KeyCode.DownArrow))
+			transform.Translate(0, -Speed, 0);
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
