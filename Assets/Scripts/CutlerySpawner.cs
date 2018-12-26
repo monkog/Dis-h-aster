@@ -10,7 +10,7 @@ public class CutlerySpawner : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		_nextCutlery = CutleryPrefabs[Random.Range(0, CutleryPrefabs.Length)];
+		_nextCutlery = SelectNextCutlery();
 	}
 
 	// Update is called once per frame
@@ -19,7 +19,7 @@ public class CutlerySpawner : MonoBehaviour
 		if (_lastCutlery != null && _lastCutlery.GetComponent<Cutlery>().CanMove) return;
 
 		_lastCutlery = SpawnCutlery();
-		_nextCutlery = CutleryPrefabs[Random.Range(0, CutleryPrefabs.Length)];
+		_nextCutlery = SelectNextCutlery();
 	}
 
 	private GameObject SpawnCutlery()
@@ -29,5 +29,12 @@ public class CutlerySpawner : MonoBehaviour
 		var cutlery = Instantiate(_nextCutlery, position, Quaternion.identity);
 		cutlery.GetComponent<SpriteRenderer>().sortingOrder = _cutleryCount;
 		return cutlery;
+	}
+
+	private GameObject SelectNextCutlery()
+	{
+		var next = CutleryPrefabs[Random.Range(0, CutleryPrefabs.Length)];
+		GameLogic.Instance.NextSprite.sprite = next.GetComponent<SpriteRenderer>().sprite;
+		return next;
 	}
 }

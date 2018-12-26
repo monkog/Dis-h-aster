@@ -8,6 +8,7 @@ public class GameLogic : MonoBehaviour
 
 	public static GameLogic Instance;
 
+	public Image NextSprite;
 	public Text Points;
 
 	public void Awake()
