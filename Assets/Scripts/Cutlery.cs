@@ -10,12 +10,18 @@ public class Cutlery : MonoBehaviour
 
 	private bool _pointsClaimed;
 
+	private AudioSource _clingSound;
+
+	private AudioSource _breakSound;
+
 	public bool CanMove { get { return _canMove; } }
 
 	// Use this for initialization
 	void Start()
 	{
 		_canMove = true;
+		_clingSound = GetComponents<AudioSource>()[0];
+		_breakSound = GetComponents<AudioSource>()[1];
 	}
 
 	// Update is called once per frame
@@ -37,14 +43,15 @@ public class Cutlery : MonoBehaviour
 
 		if (collision.gameObject.tag == FloorTag)
 		{
-			Destroy(gameObject);
 			GameLogic.Instance.RemovePoints();
+			_breakSound.Play();
 		}
 
 		if (!_pointsClaimed)
 		{
 			GameLogic.Instance.AddPoints();
 			_pointsClaimed = true;
+			_clingSound.Play();
 		}
 	}
 }
