@@ -32,7 +32,7 @@ public class GameLogic : MonoBehaviour
 		Points.text = _points.ToString();
 		Life.value--;
 
-		if (_points == 0)
+		if (Life.value == 0)
 		{
 			GameOver();
 		}
