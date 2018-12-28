@@ -1,25 +1,45 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class CutlerySpawner : MonoBehaviour
 {
 	public GameObject[] CutleryPrefabs;
+	public GameObject Camera;
+
 	private int _cutleryCount;
-	private GameObject _lastCutlery;
+	private List<GameObject> _cutlery;
 	private GameObject _nextCutlery;
 
 	// Use this for initialization
 	void Start()
 	{
 		_nextCutlery = SelectNextCutlery();
+		_cutlery = new List<GameObject>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (_lastCutlery != null && _lastCutlery.GetComponent<Cutlery>().CanMove) return;
+		var lastCutlery = _cutlery.LastOrDefault();
+		var lastCutlery1 = _cutlery.LastOrDefault(c => !c.GetComponent<Cutlery>().CanMove);
 
-		_lastCutlery = SpawnCutlery();
+		if (_cutlery.Count > 1)
+			AdjustCamera(lastCutlery1.gameObject.transform.position);
+
+		if (lastCutlery != null && lastCutlery.GetComponent<Cutlery>().CanMove) return;
+
+		_cutlery.Add(SpawnCutlery());
 		_nextCutlery = SelectNextCutlery();
+	}
+
+	private void AdjustCamera(Vector3 center)
+	{
+		if (Camera.transform.position.y - center.y > 3) return;
+		var delta = 0.01f;
+
+		Camera.transform.Translate(0, delta, 0);
+		transform.Translate(0, delta, 0);
 	}
 
 	private GameObject SpawnCutlery()
