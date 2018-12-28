@@ -33,10 +33,12 @@ public class Cutlery : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
+		_canMove = false;
+
 		if (collision.gameObject.tag == FloorTag)
 		{
 			Destroy(gameObject);
-			GameLogic.Instance.GameOver();
+			GameLogic.Instance.RemovePoints();
 		}
 
 		if (!_pointsClaimed)
@@ -44,7 +46,5 @@ public class Cutlery : MonoBehaviour
 			GameLogic.Instance.AddPoints();
 			_pointsClaimed = true;
 		}
-
-		_canMove = false;
 	}
 }

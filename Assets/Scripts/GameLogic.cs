@@ -10,6 +10,7 @@ public class GameLogic : MonoBehaviour
 
 	public Image NextSprite;
 	public Text Points;
+	public Slider Life;
 
 	public void Awake()
 	{
@@ -25,7 +26,14 @@ public class GameLogic : MonoBehaviour
 		Points.text = _points.ToString();
 	}
 
-	public void GameOver()
+	public void RemovePoints()
+	{
+		_points--;
+		Points.text = _points.ToString();
+		Life.value--;
+	}
+
+	private void GameOver()
 	{
 		_points = 0;
 		SceneManager.LoadScene("Menu");
