@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Cutlery : MonoBehaviour
+public class Dish : MonoBehaviour
 {
 	private const string FloorTag = "Floor";
 

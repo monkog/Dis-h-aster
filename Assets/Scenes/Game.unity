@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 131026932}
   - component: {fileID: 131026933}
   m_Layer: 5
-  m_Name: NextSprite
+  m_Name: NextDish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 275829982}
   - component: {fileID: 275829983}
   m_Layer: 0
-  m_Name: CutlerySpawner
+  m_Name: DishSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,9 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b36cbaecbc52d24793467ca410ffe30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CutleryPrefabs:
-  - {fileID: 1485409069640424, guid: a1257d376fb283b4282e5e30706cf141, type: 3}
+  DishPrefabs:
   - {fileID: 1011825611738906, guid: ed1dbf7045755e2478607863ebc550e4, type: 3}
+  - {fileID: 1485409069640424, guid: a1257d376fb283b4282e5e30706cf141, type: 3}
   Camera: {fileID: 519420028}
 --- !u!1 &279846487
 GameObject:
