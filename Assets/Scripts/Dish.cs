@@ -8,7 +8,11 @@ public class Dish : MonoBehaviour
 
 	private bool _canMove = true;
 
+	private bool _isBroken;
+
 	private bool _pointsClaimed;
+
+	private Animator _cameraAnimator;
 
 	private AudioSource _clingSound;
 
@@ -16,12 +20,15 @@ public class Dish : MonoBehaviour
 
 	public bool CanMove { get { return _canMove; } }
 
+	public bool IsBroken { get { return _isBroken; } }
+
 	// Use this for initialization
 	void Start()
 	{
 		_canMove = true;
 		_clingSound = GetComponents<AudioSource>()[0];
 		_breakSound = GetComponents<AudioSource>()[1];
+		_cameraAnimator = GameObject.FindWithTag("ScreenShaker").GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
@@ -45,6 +52,8 @@ public class Dish : MonoBehaviour
 		{
 			GameLogic.Instance.RemovePoints();
 			_breakSound.Play();
+			_isBroken = true;
+			_cameraAnimator.Play("CameraShake");
 		}
 
 		if (!_pointsClaimed)

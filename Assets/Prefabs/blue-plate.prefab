@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0722576178557418835da6849221fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraAnimator: {fileID: 0}
 --- !u!70 &70202377072089584
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

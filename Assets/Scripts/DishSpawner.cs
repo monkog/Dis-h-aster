@@ -6,6 +6,7 @@ public class DishSpawner : MonoBehaviour
 {
 	public GameObject[] DishPrefabs;
 	public GameObject Camera;
+	public GameObject Floor;
 
 	private int _dishCount;
 	private List<GameObject> _dishes;
@@ -21,11 +22,18 @@ public class DishSpawner : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		var brokenDishes = _dishes.Where(d => d.GetComponent<Dish>().IsBroken).ToList();
+		foreach (var dish in brokenDishes)
+		{
+			Destroy(dish.gameObject);
+			_dishes.Remove(dish);
+		}
+
 		var lastSpawnedDish = _dishes.LastOrDefault();
 		var lastPlacedDish = _dishes.LastOrDefault(c => !c.GetComponent<Dish>().CanMove);
 
 		if (_dishes.Count > 1)
-			AdjustCamera(lastPlacedDish.gameObject.transform.position);
+			AdjustGameArea(lastPlacedDish.gameObject.transform.position);
 
 		if (lastSpawnedDish != null && lastSpawnedDish.GetComponent<Dish>().CanMove) return;
 
@@ -33,12 +41,13 @@ public class DishSpawner : MonoBehaviour
 		_nextDish = SelectNextDish();
 	}
 
-	private void AdjustCamera(Vector3 center)
+	private void AdjustGameArea(Vector3 center)
 	{
 		if (Camera.transform.position.y - center.y > 3) return;
 		var delta = 0.01f;
 
 		Camera.transform.Translate(0, delta, 0);
+		Floor.transform.Translate(0, delta, 0);
 		transform.Translate(0, delta, 0);
 	}
 
