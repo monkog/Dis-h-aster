@@ -295,6 +295,8 @@ MonoBehaviour:
   - {fileID: 1485409069640424, guid: a1257d376fb283b4282e5e30706cf141, type: 3}
   Camera: {fileID: 519420028}
   Floor: {fileID: 770629846}
+  BrokenDish: {fileID: 7461341564262935775, guid: 94f1b6a9ba74f244092adeb7f69f44c4,
+    type: 3}
 --- !u!1 &279846487
 GameObject:
   m_ObjectHideFlags: 0

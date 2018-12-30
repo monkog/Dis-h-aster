@@ -16,8 +16,6 @@ public class Dish : MonoBehaviour
 
 	private AudioSource _clingSound;
 
-	private AudioSource _breakSound;
-
 	public bool CanMove { get { return _canMove; } }
 
 	public bool IsBroken { get { return _isBroken; } }
@@ -26,8 +24,7 @@ public class Dish : MonoBehaviour
 	void Start()
 	{
 		_canMove = true;
-		_clingSound = GetComponents<AudioSource>()[0];
-		_breakSound = GetComponents<AudioSource>()[1];
+		_clingSound = GetComponent<AudioSource>();
 		_cameraAnimator = GameObject.FindWithTag("ScreenShaker").GetComponent<Animator>();
 	}
 
@@ -51,9 +48,8 @@ public class Dish : MonoBehaviour
 		if (collision.gameObject.tag == FloorTag)
 		{
 			GameLogic.Instance.RemovePoints();
-			_breakSound.Play();
-			_isBroken = true;
 			_cameraAnimator.Play("CameraShake");
+			_isBroken = true;
 		}
 
 		if (!_pointsClaimed)

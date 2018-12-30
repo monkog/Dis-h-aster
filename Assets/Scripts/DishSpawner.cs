@@ -7,6 +7,7 @@ public class DishSpawner : MonoBehaviour
 	public GameObject[] DishPrefabs;
 	public GameObject Camera;
 	public GameObject Floor;
+	public GameObject BrokenDish;
 
 	private int _dishCount;
 	private List<GameObject> _dishes;
@@ -25,6 +26,7 @@ public class DishSpawner : MonoBehaviour
 		var brokenDishes = _dishes.Where(d => d.GetComponent<Dish>().IsBroken).ToList();
 		foreach (var dish in brokenDishes)
 		{
+			Instantiate(BrokenDish, dish.transform.position, Quaternion.identity);
 			Destroy(dish.gameObject);
 			_dishes.Remove(dish);
 		}
@@ -44,7 +46,7 @@ public class DishSpawner : MonoBehaviour
 	private void AdjustGameArea(Vector3 center)
 	{
 		if (Camera.transform.position.y - center.y > 3) return;
-		var delta = 0.01f;
+		var delta = 0.03f;
 
 		Camera.transform.Translate(0, delta, 0);
 		Floor.transform.Translate(0, delta, 0);
