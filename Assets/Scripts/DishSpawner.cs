@@ -51,6 +51,9 @@ public class DishSpawner : MonoBehaviour
 		Camera.transform.Translate(0, delta, 0);
 		Floor.transform.Translate(0, delta, 0);
 		transform.Translate(0, delta, 0);
+
+		var invisibleDishes = _dishes.Where(dish => dish.transform.position.y < Floor.transform.position.y).ToList();
+		invisibleDishes.ForEach(dish => dish.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static);
 	}
 
 	private GameObject SpawnDish()
