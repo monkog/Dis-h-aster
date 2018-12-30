@@ -30,12 +30,13 @@ public class GameLogic : MonoBehaviour
 	{
 		_points--;
 		Points.text = _points.ToString();
-		Life.value--;
 
 		if (Life.value == 0)
 		{
 			GameOver();
 		}
+
+		Life.value--;
 	}
 
 	private void GameOver()
