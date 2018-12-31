@@ -1,45 +1,48 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DishSpawner : MonoBehaviour
 {
 	public GameObject[] DishPrefabs;
 	public GameObject Camera;
 	public GameObject Floor;
-	public GameObject BrokenDish;
+	public GameObject[] BrokenDishes;
 
 	private int _dishCount;
-	private List<GameObject> _dishes;
+	private List<DishInstance> _dishes;
 	private GameObject _nextDish;
+	private DishType _nextDishType;
 
 	// Use this for initialization
 	void Start()
 	{
 		_nextDish = SelectNextDish();
-		_dishes = new List<GameObject>();
+		_dishes = new List<DishInstance>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		var brokenDishes = _dishes.Where(d => d.GetComponent<Dish>().IsBroken).ToList();
+		var brokenDishes = _dishes.Where(d => d.Instance.GetComponent<Dish>().IsBroken).ToList();
 		foreach (var dish in brokenDishes)
 		{
-			Instantiate(BrokenDish, dish.transform.position, Quaternion.identity);
-			Destroy(dish.gameObject);
+			Instantiate(BrokenDishes.ElementAt((int)dish.Type), dish.Instance.transform.position, Quaternion.identity);
+			Destroy(dish.Instance.gameObject);
 			_dishes.Remove(dish);
 		}
 
 		var lastSpawnedDish = _dishes.LastOrDefault();
-		var lastPlacedDish = _dishes.LastOrDefault(c => !c.GetComponent<Dish>().CanMove);
+		var lastPlacedDish = _dishes.LastOrDefault(c => !c.Instance.GetComponent<Dish>().CanMove);
 
 		if (_dishes.Count > 1)
-			AdjustGameArea(lastPlacedDish.gameObject.transform.position);
+			AdjustGameArea(lastPlacedDish.Instance.gameObject.transform.position);
 
-		if (lastSpawnedDish != null && lastSpawnedDish.GetComponent<Dish>().CanMove) return;
+		if (lastSpawnedDish != null && lastSpawnedDish.Instance.GetComponent<Dish>().CanMove) return;
 
-		_dishes.Add(SpawnDish());
+		_dishes.Add(new DishInstance(SpawnDish(), _nextDishType));
 		_nextDish = SelectNextDish();
 	}
 
@@ -52,8 +55,8 @@ public class DishSpawner : MonoBehaviour
 		Floor.transform.Translate(0, delta, 0);
 		transform.Translate(0, delta, 0);
 
-		var invisibleDishes = _dishes.Where(dish => dish.transform.position.y < Floor.transform.position.y).ToList();
-		invisibleDishes.ForEach(dish => dish.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static);
+		var invisibleDishes = _dishes.Where(dish => dish.Instance.transform.position.y < Floor.transform.position.y).ToList();
+		invisibleDishes.ForEach(dish => dish.Instance.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static);
 	}
 
 	private GameObject SpawnDish()
@@ -67,7 +70,9 @@ public class DishSpawner : MonoBehaviour
 
 	private GameObject SelectNextDish()
 	{
-		var next = DishPrefabs[Random.Range(0, DishPrefabs.Length)];
+		var nextIndex = Random.Range(0, DishPrefabs.Length);
+		var next = DishPrefabs[nextIndex];
+		_nextDishType = (DishType)Enum.Parse(typeof(DishType), nextIndex.ToString());
 		GameLogic.Instance.NextSprite.sprite = next.GetComponent<SpriteRenderer>().sprite;
 		return next;
 	}
