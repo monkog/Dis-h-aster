@@ -26,6 +26,8 @@ public class DishSpawner : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (GameLogic.Instance.IsGameOver) return;
+
 		var brokenDishes = _dishes.Where(d => d.Instance.GetComponent<Dish>().IsBroken).ToList();
 		foreach (var dish in brokenDishes)
 		{

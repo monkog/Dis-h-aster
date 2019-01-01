@@ -31,7 +31,7 @@ public class Dish : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!_canMove) return;
+		if (GameLogic.Instance.IsGameOver || !_canMove) return;
 
 		if (Input.GetKey(KeyCode.LeftArrow))
 			transform.Translate(-Speed, 0, 0);
