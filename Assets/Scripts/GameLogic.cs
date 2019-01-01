@@ -58,6 +58,7 @@ public class GameLogic : MonoBehaviour
 		IsGameOver = true;
 		Time.timeScale = 0;
 		GameOverCanvas.SetActive(true);
+		GameMaster.Instance.SaveLatestScore(_points);
 
 		//SceneManager.LoadScene("Menu");
 	}
