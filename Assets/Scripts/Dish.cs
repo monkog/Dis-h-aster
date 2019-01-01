@@ -52,6 +52,7 @@ public class Dish : MonoBehaviour
 			GameLogic.Instance.RemovePoints();
 			_cameraAnimator.Play("CameraShake");
 			_isBroken = true;
+			return;
 		}
 
 		if (!_pointsClaimed)
