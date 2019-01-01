@@ -11,6 +11,7 @@ public class GameLogic : MonoBehaviour
 	public Image NextSprite;
 	public Text Points;
 	public Slider Life;
+	public GameObject PauseCanvas;
 
 	public void Awake()
 	{
@@ -18,6 +19,15 @@ public class GameLogic : MonoBehaviour
 			Instance = this;
 		else
 			Destroy(gameObject);
+	}
+
+	public void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
+		{
+			Time.timeScale = (Time.timeScale + 1) % 2;
+			PauseCanvas.SetActive(Time.timeScale == 0);
+		}
 	}
 
 	public void AddPoints()
