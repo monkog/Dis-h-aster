@@ -43,6 +43,8 @@ public class Dish : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
+		if (GameLogic.Instance.IsGameOver) return;
+
 		_canMove = false;
 
 		if (collision.gameObject.tag == FloorTag)

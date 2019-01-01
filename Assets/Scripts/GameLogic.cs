@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour
@@ -9,6 +11,7 @@ public class GameLogic : MonoBehaviour
 
 	public Image NextSprite;
 	public Text Points;
+	public Text BestScore;
 	public Slider Life;
 	public bool IsGameOver;
 
@@ -56,10 +59,17 @@ public class GameLogic : MonoBehaviour
 	private void GameOver()
 	{
 		IsGameOver = true;
-		Time.timeScale = 0;
 		GameOverCanvas.SetActive(true);
 		GameMaster.Instance.SaveLatestScore(_points);
+		BestScore.text = "Best score: " + GameMaster.Instance.BestScore;
 
-		//SceneManager.LoadScene("Menu");
+		Invoke("LoadMainMenu", 5f);
+	}
+
+
+	void LoadMainMenu()
+	{
+		SceneManager.LoadScene("Menu");
+		IsGameOver = false;
 	}
 }
