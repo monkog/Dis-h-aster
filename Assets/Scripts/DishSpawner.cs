@@ -15,12 +15,14 @@ public class DishSpawner : MonoBehaviour
 	private List<DishInstance> _dishes;
 	private GameObject _nextDish;
 	private DishType _nextDishType;
+	private Floor _floor;
 
 	// Use this for initialization
 	void Start()
 	{
 		_nextDish = SelectNextDish();
 		_dishes = new List<DishInstance>();
+		_floor = Floor.GetComponent<Floor>();
 	}
 
 	// Update is called once per frame
@@ -57,8 +59,11 @@ public class DishSpawner : MonoBehaviour
 		Floor.transform.Translate(0, delta, 0);
 		transform.Translate(0, delta, 0);
 
+		var visibleDishes = _dishes.Where(dish => dish.Instance.transform.position.y >= Floor.transform.position.y).ToList();
 		var invisibleDishes = _dishes.Where(dish => dish.Instance.transform.position.y < Floor.transform.position.y).ToList();
 		invisibleDishes.ForEach(dish => dish.Instance.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static);
+
+		_floor.AdaptFloorCollider(visibleDishes);
 	}
 
 	private GameObject SpawnDish()
