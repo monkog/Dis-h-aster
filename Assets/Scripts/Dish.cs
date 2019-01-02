@@ -52,7 +52,6 @@ public class Dish : MonoBehaviour
 		{
 			GameLogic.Instance.AddLife();
 			Destroy(collision.gameObject);
-			Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), collision.gameObject.GetComponent<Collider>());
 			return;
 		}
 
