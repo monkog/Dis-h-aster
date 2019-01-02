@@ -38,32 +38,35 @@ public class DishSpawner : MonoBehaviour
 			_dishes.Remove(dish);
 		}
 
-		var lastSpawnedDish = _dishes.LastOrDefault();
-		var lastPlacedDish = _dishes.LastOrDefault(c => !c.Instance.GetComponent<Dish>().CanMove);
-
 		if (_dishes.Count > 1)
-			AdjustGameArea(lastPlacedDish.Instance.gameObject.transform.position);
+			AdjustGameArea(_dishes.Take(_dishes.Count - 1).ToList());
 
+		var lastSpawnedDish = _dishes.LastOrDefault();
 		if (lastSpawnedDish != null && lastSpawnedDish.Instance.GetComponent<Dish>().CanMove) return;
 
 		_dishes.Add(new DishInstance(SpawnDish(), _nextDishType));
 		_nextDish = SelectNextDish();
 	}
 
-	private void AdjustGameArea(Vector3 center)
+	private void AdjustGameArea(List<DishInstance> dishes)
 	{
-		if (Camera.transform.position.y - center.y > 3) return;
-		var delta = 0.03f;
+		var visibleDishes = dishes.Where(dish => dish.Bounds.max.y >= Floor.transform.position.y).ToList();
+
+		var highestDish = visibleDishes.Select(dish => dish.Bounds.center.y).Max();
+
+		float delta;
+		if (Camera.transform.position.y - highestDish < 3) delta = 0.03f;
+		else if (Camera.transform.position.y - highestDish > 3.5) delta = -0.03f;
+		else return;
 
 		Camera.transform.Translate(0, delta, 0);
 		Floor.transform.Translate(0, delta, 0);
 		transform.Translate(0, delta, 0);
 
-		var visibleDishes = _dishes.Where(dish => dish.Instance.transform.position.y >= Floor.transform.position.y).ToList();
-		var invisibleDishes = _dishes.Where(dish => dish.Instance.transform.position.y < Floor.transform.position.y).ToList();
-		invisibleDishes.ForEach(dish => dish.Instance.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static);
+		var invisibleDishes = dishes.Where(dish => !dish.IsStatic && dish.Instance.transform.position.y < Floor.transform.position.y - 3).ToList();
+		invisibleDishes.ForEach(dish => dish.MakeStatic());
 
-		_floor.AdaptFloorCollider(visibleDishes);
+		_floor.AdaptFloorCollider(visibleDishes.Where(dish => Mathf.Abs(dish.Velocity) < 1f).ToList());
 	}
 
 	private GameObject SpawnDish()
