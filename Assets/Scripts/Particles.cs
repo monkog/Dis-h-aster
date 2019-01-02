@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class BrokenDish : MonoBehaviour
+public class Particles : MonoBehaviour
 {
 	private ParticleSystem _particleSystem;
-
+	
 	// Start is called before the first frame update
 	void Start()
 	{
