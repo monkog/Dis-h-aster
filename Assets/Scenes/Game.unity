@@ -1478,6 +1478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab846b96edac244eb7ca20284a02afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Camera: {fileID: 519420028}
   BonusPrefabs:
   - {fileID: 8978553276577118320, guid: bbc2d37afe91c2a4a80f683fd117648d, type: 3}
 --- !u!1 &1575907139
