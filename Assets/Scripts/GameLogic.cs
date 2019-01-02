@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -37,10 +36,16 @@ public class GameLogic : MonoBehaviour
 		}
 	}
 
-	public void AddPoints()
+	public void AddPoints(int points = 1)
 	{
-		_points++;
+		_points += points;
 		Points.text = _points.ToString();
+	}
+
+	public void AddLife()
+	{
+		if (Life.value != Life.maxValue)
+			Life.value++;
 	}
 
 	public void RemovePoints()
@@ -65,7 +70,6 @@ public class GameLogic : MonoBehaviour
 
 		Invoke("LoadMainMenu", 5f);
 	}
-
 
 	void LoadMainMenu()
 	{

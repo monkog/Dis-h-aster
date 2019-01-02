@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Dish : MonoBehaviour
 {
 	private const string FloorTag = "Floor";
+	private const string PointsBonusTag = "PointsBonus";
+	private const string LifeBonusTag = "LifeBonus";
 
 	private const float Speed = 0.1f;
 
@@ -44,6 +47,22 @@ public class Dish : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (GameLogic.Instance.IsGameOver) return;
+
+		if (collision.gameObject.tag == LifeBonusTag)
+		{
+			GameLogic.Instance.AddLife();
+			Destroy(collision.gameObject);
+			Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), collision.gameObject.GetComponent<Collider>());
+			return;
+		}
+
+		if (collision.gameObject.tag == PointsBonusTag)
+		{
+			var points = int.Parse(collision.gameObject.GetComponent<Text>().text);
+			GameLogic.Instance.AddPoints(points);
+			Destroy(collision.gameObject);
+			return;
+		}
 
 		_canMove = false;
 

@@ -8,6 +8,8 @@ TagManager:
   - Cutlery
   - Floor
   - ScreenShaker
+  - LifeBonus
+  - PointsBonus
   layers:
   - Default
   - TransparentFX
