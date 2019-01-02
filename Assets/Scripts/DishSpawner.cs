@@ -50,13 +50,13 @@ public class DishSpawner : MonoBehaviour
 
 	private void AdjustGameArea(List<DishInstance> dishes)
 	{
-		var visibleDishes = dishes.Where(dish => dish.Bounds.max.y >= Floor.transform.position.y).ToList();
+		var visibleDishes = dishes.Where(dish => dish.Bounds.max.y >= (Floor.transform.position.y + 0.5f)).ToList();
 
 		var highestDish = visibleDishes.Select(dish => dish.Bounds.center.y).Max();
 
 		float delta;
 		if (Camera.transform.position.y - highestDish < 3) delta = 0.03f;
-		else if (Camera.transform.position.y - highestDish > 3.5) delta = -0.03f;
+		else if (Camera.transform.position.y - highestDish > 3.5) delta = -0.05f;
 		else return;
 
 		Camera.transform.Translate(0, delta, 0);
@@ -66,7 +66,7 @@ public class DishSpawner : MonoBehaviour
 		var invisibleDishes = dishes.Where(dish => !dish.IsStatic && dish.Instance.transform.position.y < Floor.transform.position.y - 3).ToList();
 		invisibleDishes.ForEach(dish => dish.MakeStatic());
 
-		_floor.AdaptFloorCollider(visibleDishes.Where(dish => Mathf.Abs(dish.Velocity) < 1f).ToList());
+		_floor.AdaptFloorCollider(visibleDishes.Where(dish => !dish.IsFalling).ToList());
 	}
 
 	private GameObject SpawnDish()

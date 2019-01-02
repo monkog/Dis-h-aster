@@ -13,7 +13,7 @@ public class DishInstance
 
 	public bool IsStatic { get; private set; }
 
-	public float Velocity { get { return _rigidBody.velocity.y; } }
+	public bool IsFalling { get { return Mathf.Abs(_rigidBody.velocity.magnitude) > 1.0f; } }
 
 	public DishInstance(GameObject instance, DishType type)
 	{
