@@ -57,7 +57,7 @@ public class Dish : MonoBehaviour
 
 		if (collision.gameObject.tag == PointsBonusTag)
 		{
-			var points = int.Parse(collision.gameObject.GetComponent<Text>().text);
+			var points = int.Parse(collision.gameObject.GetComponentInChildren<TextMesh>().text);
 			GameLogic.Instance.AddPoints(points);
 			Destroy(collision.gameObject);
 			return;

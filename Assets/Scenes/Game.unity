@@ -1481,6 +1481,7 @@ MonoBehaviour:
   Camera: {fileID: 519420028}
   BonusPrefabs:
   - {fileID: 8978553276577118320, guid: bbc2d37afe91c2a4a80f683fd117648d, type: 3}
+  - {fileID: 7060846808831384722, guid: 18fcb53f6fb75404585776b28ba43680, type: 3}
 --- !u!1 &1575907139
 GameObject:
   m_ObjectHideFlags: 0
