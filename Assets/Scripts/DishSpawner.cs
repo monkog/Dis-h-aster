@@ -52,7 +52,7 @@ public class DishSpawner : MonoBehaviour
 	{
 		var visibleDishes = dishes.Where(dish => dish.Bounds.max.y >= Floor.transform.position.y - 0.5f).ToList();
 
-		var highestDish = visibleDishes.Select(dish => dish.Bounds.center.y).Max();
+		var highestDish = visibleDishes.Where(dish => !dish.IsFalling).Select(dish => dish.Bounds.center.y).Max();
 
 		float delta;
 		if (Camera.transform.position.y - highestDish < 3) delta = 0.03f;
