@@ -15,7 +15,11 @@ public class Particles : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (_particleSystem.isStopped && !_audio.isPlaying)
+		if (_particleSystem.isStopped)
+		{
+			if (_audio != null && _audio.isPlaying) return;
+
 			Destroy(gameObject);
+		}
 	}
 }
