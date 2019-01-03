@@ -8,6 +8,8 @@
 :art: http://www.publicdomainfiles.com/show_file.php?id=13545915612553
 :art: https://www.maxpixel.net/Hand-Labor-Next-Arrow-Straight-Right-Turn-2079328
 :art: https://svgsilh.com/image/156706.html
+:art: https://commons.wikimedia.org/wiki/File:Speaker_Icon.svg
+:art: https://commons.wikimedia.org/wiki/File:Mute_Icon.svg
 :pencil: https://www.dafont.com/brokenpieces.font
 :pencil: https://www.dafont.com/rh-shmatter.font?psize=l&l[]=10&l[]=1&back=theme
 :musical_note: http://soundbible.com/108-Plate-Shatter-Break.html
