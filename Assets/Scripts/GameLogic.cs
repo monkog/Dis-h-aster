@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class GameLogic : MonoBehaviour
 {
 	private int _points;
+	private bool _isBestScore;
+	private Camera _camera;
 
 	public static GameLogic Instance;
 
@@ -16,6 +18,7 @@ public class GameLogic : MonoBehaviour
 
 	public GameObject PauseCanvas;
 	public GameObject GameOverCanvas;
+	public GameObject HighScoreAnimation;
 
 	public void Awake()
 	{
@@ -23,6 +26,11 @@ public class GameLogic : MonoBehaviour
 			Instance = this;
 		else
 			Destroy(gameObject);
+	}
+
+	void Start()
+	{
+		_camera = FindObjectOfType<Camera>();
 	}
 
 	public void Update()
@@ -40,6 +48,13 @@ public class GameLogic : MonoBehaviour
 	{
 		_points += points;
 		Points.text = _points.ToString();
+
+		if (GameMaster.Instance.BestScore > 0 && GameMaster.Instance.BestScore < _points && !_isBestScore)
+		{
+			Time.timeScale = 0;
+			_isBestScore = true;
+			Instantiate(HighScoreAnimation, _camera.transform.position, Quaternion.identity);
+		}
 	}
 
 	public void AddLife()
@@ -50,9 +65,6 @@ public class GameLogic : MonoBehaviour
 
 	public void RemovePoints()
 	{
-		_points--;
-		Points.text = _points.ToString();
-
 		if (Life.value == 0)
 		{
 			GameOver();
@@ -65,15 +77,17 @@ public class GameLogic : MonoBehaviour
 	{
 		IsGameOver = true;
 		GameOverCanvas.SetActive(true);
+
 		GameMaster.Instance.SaveLatestScore(_points);
 		BestScore.text = "Best score: " + GameMaster.Instance.BestScore;
 
 		Invoke("LoadMainMenu", 5f);
 	}
 
-	void LoadMainMenu()
+	private void LoadMainMenu()
 	{
 		SceneManager.LoadScene("Menu");
 		IsGameOver = false;
+		_isBestScore = false;
 	}
 }

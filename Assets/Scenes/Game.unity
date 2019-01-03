@@ -1778,7 +1778,7 @@ GameObject:
   - component: {fileID: 1614332164}
   - component: {fileID: 1614332163}
   m_Layer: 0
-  m_Name: 13939155617886
+  m_Name: Waiter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2226,6 +2226,8 @@ MonoBehaviour:
   IsGameOver: 0
   PauseCanvas: {fileID: 133120873}
   GameOverCanvas: {fileID: 706095668}
+  HighScoreAnimation: {fileID: 4776120815744002769, guid: bc8f41c8964b8ac42b023585c18e4f28,
+    type: 3}
 --- !u!4 &1969489304
 Transform:
   m_ObjectHideFlags: 0
