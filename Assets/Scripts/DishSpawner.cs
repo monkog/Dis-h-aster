@@ -52,18 +52,23 @@ public class DishSpawner : MonoBehaviour
 	{
 		var visibleDishes = dishes.Where(dish => dish.Bounds.max.y >= Floor.transform.position.y - 0.5f).ToList();
 
-		var highestDish = visibleDishes.Where(dish => !dish.IsFalling).Select(dish => dish.Bounds.center.y).Max();
+		var visibleStackedDishes = visibleDishes.Where(dish => !dish.IsFalling).ToList();
 
-		float delta;
-		if (Camera.transform.position.y - highestDish < 3) delta = 0.03f;
-		else if (Camera.transform.position.y - highestDish > 3.5) delta = -0.05f;
-		else return;
+		if (visibleStackedDishes.Any())
+		{
+			var highestDish = visibleStackedDishes.Select(dish => dish.Bounds.center.y).Max();
 
-		Camera.transform.Translate(0, delta, 0);
-		Floor.transform.Translate(0, delta, 0);
-		transform.Translate(0, delta, 0);
+			float delta;
+			if (Camera.transform.position.y - highestDish < 3) delta = 0.03f;
+			else if (Camera.transform.position.y - highestDish > 3.5) delta = -0.03f;
+			else return;
 
-		_floor.AdaptFloorCollider(visibleDishes.Where(dish => !dish.IsFalling).ToList());
+			Camera.transform.Translate(0, delta, 0);
+			Floor.transform.Translate(0, delta, 0);
+			transform.Translate(0, delta, 0);
+
+			_floor.AdaptFloorCollider(visibleDishes.Where(dish => !dish.IsFalling).ToList());
+		}
 
 		var invisibleDishes = dishes.Where(dish => !dish.IsStatic && dish.Instance.transform.position.y < Floor.transform.position.y).ToList();
 		invisibleDishes.ForEach(dish => dish.MakeStatic());

@@ -19,6 +19,7 @@ public class GameLogic : MonoBehaviour
 	public GameObject PauseCanvas;
 	public GameObject GameOverCanvas;
 	public GameObject HighScoreAnimation;
+	public GameObject FinalDestructionAudio;
 
 	public void Awake()
 	{
