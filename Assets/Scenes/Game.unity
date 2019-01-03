@@ -1439,7 +1439,8 @@ MonoBehaviour:
   VolumeSprites:
   - {fileID: 21300000, guid: b1ef7b5ad981e4b459b7fc4fa6cd9b94, type: 3}
   - {fileID: 21300000, guid: 716dab732c837af49896d9cb8e6b12e0, type: 3}
-  MusicalNotes: {fileID: 0}
+  MusicalNotes: {fileID: 2990112318657803414, guid: 647d4af5488c85d4db3f12f960e362d9,
+    type: 3}
 --- !u!114 &1147936213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1917,7 +1918,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1006988612}
   m_HandleRect: {fileID: 0}
