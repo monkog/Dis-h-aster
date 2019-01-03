@@ -1439,6 +1439,7 @@ MonoBehaviour:
   VolumeSprites:
   - {fileID: 21300000, guid: b1ef7b5ad981e4b459b7fc4fa6cd9b94, type: 3}
   - {fileID: 21300000, guid: 716dab732c837af49896d9cb8e6b12e0, type: 3}
+  MusicalNotes: {fileID: 0}
 --- !u!114 &1147936213
 MonoBehaviour:
   m_ObjectHideFlags: 0

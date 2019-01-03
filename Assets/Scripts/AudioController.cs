@@ -8,6 +8,7 @@ namespace Assets.Scripts
 		private Image _backgroundImage;
 
 		public Sprite[] VolumeSprites;
+		public GameObject MusicalNotes;
 
 		void Start()
 		{
@@ -16,8 +17,12 @@ namespace Assets.Scripts
 
 		public void MuteUnMuteAudio()
 		{
-			AudioListener.volume = (AudioListener.volume + 1) % 2;
-			_backgroundImage.sprite = VolumeSprites[(int)AudioListener.volume];
+			int volume = (int)((AudioListener.volume + 1) % 2);
+			AudioListener.volume = volume;
+			_backgroundImage.sprite = VolumeSprites[volume];
+
+			if (volume == 1)
+				Instantiate(MusicalNotes);
 		}
 	}
 }
