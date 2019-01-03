@@ -1,5 +1,4 @@
-# Waiter-Challenge
-
+# Dis(h)aster
 
 :link: Image sources
 :art: https://commons.wikimedia.org/wiki/File:Palette_de_peinture.png
