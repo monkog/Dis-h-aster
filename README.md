@@ -14,4 +14,5 @@
 :pencil: https://www.dafont.com/rh-shmatter.font?psize=l&l[]=10&l[]=1&back=theme
 :musical_note: http://soundbible.com/108-Plate-Shatter-Break.html
 :musical_note: http://soundbible.com/1761-Glass-Breaking.html
+:musical_note: http://soundbible.com/474-Magic-Wand-Noise.html
 :musical_note: https://freesound.org/people/E330/sounds/163097/
