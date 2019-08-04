@@ -9,7 +9,9 @@ Help the waiter to stack as many dirty dishes as possible. Go as high as you can
 
 Dishaster is a single player arcade game made with Unity. It can be downloaded and run on Windows or played directly in the browser.
 
-The aim of the game is to stack the falling dishes and collect bonus points. Each fallen piece decreases the remaining life points. They can be restored by collecting hearts. The game ends when the life level reaches 0.
+The aim of the game is to stack the falling dishes and collect bonus points. Each fallen piece decreases the remaining life points. They can be restored by collecting hearts. The game ends when the life level reaches 0.  
+
+To navigate the dish use :arrow_left: and :arrow_right: keys, to spped up the dish, use :arrow_down: key.
 
 
 ## :link: Images, fonts, sounds
